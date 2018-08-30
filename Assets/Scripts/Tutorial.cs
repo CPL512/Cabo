@@ -28,6 +28,8 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] GameObject tut_115_specialCards;
     [SerializeField] GameObject tut_13_peek;
     [SerializeField] GameObject tut_14_peekOpp;
+    [SerializeField] GameObject tut_145_peekOpp;
+    [SerializeField] GameObject tut_1475_peekOpp;
     [SerializeField] GameObject tut_15_blindSwap;
     [SerializeField] GameObject tut_16_knowSwap;
     [SerializeField] GameObject tut_17_objective;
@@ -48,6 +50,9 @@ public class Tutorial : MonoBehaviour {
     bool discarded;
     bool discardMode;
     bool cardDrawn;
+    bool cp1;
+    bool cp2;
+    bool cp3;
 
     Vector3 activeCardPos = new Vector3(5.75f, 0, 0);
 
@@ -113,10 +118,10 @@ public class Tutorial : MonoBehaviour {
         GameObject.Instantiate(cardPrefab);
 
         target = new Vector3(2.55f, 3.5f, 0f);
-        cardPrefab.tag = "7CLUBS";
-        hisCards.Add("7CLUBS");
-        cardPrefab.GetComponent<TutCard>().setNum(7);
-        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.CLUBS);
+        cardPrefab.tag = "9DIAMONDS";
+        hisCards.Add("9DIAMONDS");
+        cardPrefab.GetComponent<TutCard>().setNum(9);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
         GameObject.Instantiate(cardPrefab);
 
@@ -142,9 +147,9 @@ public class Tutorial : MonoBehaviour {
         GameObject.Instantiate(cardPrefab);
 
         target = new Vector3(-1.17f, -0.05f, -0.03f);
-        cardPrefab.tag = "9DIAMONDS";
+        cardPrefab.tag = "9CLUBS";
         cardPrefab.GetComponent<TutCard>().setNum(9);
-        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.CLUBS);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
         GameObject.Instantiate(cardPrefab);
 
@@ -464,7 +469,7 @@ public class Tutorial : MonoBehaviour {
             Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
             Instantiate(green_arrow, new Vector3(0.82f, -1.66f, -2f), Quaternion.identity); // points to third hand card
             GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().removeHighlightCard();
-            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.03f));
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.04f));
             GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutAssetRenderer>().discardCard();
             
         }
@@ -473,23 +478,109 @@ public class Tutorial : MonoBehaviour {
         {
             discarded = false;
             GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().flipUp();
-            StartCoroutine(flipCardDown());
+            StartCoroutine(flipCardDown("8DIAMONDS"));
             Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
             Destroy(GameObject.Find("tut_13_peek(Clone)"));
-            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutCard>().highlightCard();
             Instantiate(tut_14_peekOpp);
             updateMode(Modes.PEEK_OPP);
         }
     }
 
-    IEnumerator flipCardDown()
+    IEnumerator flipCardDown(string card)
     {
         yield return new WaitForSeconds(2);
-        GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().flipDown();
+        GameObject.FindGameObjectWithTag(card).GetComponent<TutCard>().flipDown();
     }
 
     void exePeekOpp(RaycastHit hit)
     {
+        if (hit.transform.tag == "Deck")
+        {
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutAssetRenderer>().drawCard();
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutCard>().setMoveTarget(activeCardPos);
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().highlightCard(); // highlight discard
+            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity); // points to discard
+            cardDrawn = true;
+        }
+
+        if (hit.transform.tag == "Discard" && cardDrawn)
+        {
+            cardDrawn = false;
+            discarded = true;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(2.54f, 4.56f, -2f), Quaternion.identity); // points to fourth card of opp
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.05f)); // deck position
+            GameObject.FindGameObjectWithTag("9CLUBS").GetComponent<TutAssetRenderer>().discardCard();
+        }
+
+        if (hit.transform.tag == "9DIAMONDS" && discarded)
+        {
+            discarded = false;
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().flipUp();
+            StartCoroutine(flipCardDown("9DIAMONDS"));
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity);  // point to discard
+            cp1 = true;
+        }
+
+        if (hit.transform.tag == "Discard" && cp1)
+        {
+            foreach (string tag in hisCards)
+            {
+                GameObject.FindGameObjectWithTag(tag).GetComponent<TutCard>().highlightCard();
+            }
+            cp1 = false;
+            cp2 = true;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(2.54f, 4.46f, -2f), Quaternion.identity);  // point to 9 of clubs
+            Destroy(GameObject.Find("tut_14_peekOpp(Clone)"));
+            Instantiate(tut_145_peekOpp);
+        }
+
+        if (hit.transform.tag == "9DIAMONDS" && cp2)
+        {
+            cp2 = false;
+            foreach (string tag in hisCards)
+            {
+                GameObject.FindGameObjectWithTag(tag).GetComponent<TutCard>().removeHighlightCard();
+            }
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.05f)); // deck position
+            Destroy(GameObject.Find("tut_14.5_peekOpp(Clone)"));
+            Instantiate(tut_1475_peekOpp);
+
+            GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().highlightCard();
+
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(-0.86f, -1.71f, -2f), Quaternion.identity);
+            cp3 = true;
+        }
+
+        if (hit.transform.tag == "6SPADES" && cp3)
+        {
+            cp3 = false;
+
+            GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().removeHighlightCard();
+
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.06f));
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().flipUp();
+
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().setMoveTarget(new Vector3(2.55f, 3.5f, -0.06f)); // go to opp empty hand
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Destroy(GameObject.Find("tut_14.75_peekOpp(Clone)"));
+
+
+            Instantiate(tut_15_blindSwap);
+            updateMode(Modes.BLIND_SWAP);
+        }
 
     }
 
