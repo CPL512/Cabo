@@ -46,6 +46,7 @@ public class Tutorial : MonoBehaviour {
 
     bool firstCardFlipped;
     bool secondCardFlipped;
+    bool selectedFirst;
     bool drewCard;
     bool discarded;
     bool discardMode;
@@ -570,14 +571,15 @@ public class Tutorial : MonoBehaviour {
             GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
             GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().removeHighlightCard();
 
-            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.06f));
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.07f));
             GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().flipUp();
 
             GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().setMoveTarget(new Vector3(2.55f, 3.5f, -0.06f)); // go to opp empty hand
             Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+
             Destroy(GameObject.Find("tut_14.75_peekOpp(Clone)"));
 
-
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().highlightCard();
             Instantiate(tut_15_blindSwap);
             updateMode(Modes.BLIND_SWAP);
         }
@@ -586,12 +588,89 @@ public class Tutorial : MonoBehaviour {
 
     void exeBlindSwap(RaycastHit hit)
     {
+        if (hit.transform.tag == "Deck")
+        {
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().drawCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(activeCardPos);
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().highlightCard(); // highlight discard
+            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity); // points to discard
+            cardDrawn = true;
+        }
 
+        if (hit.transform.tag == "Discard" && cardDrawn)
+        {
+            cardDrawn = false;
+            discarded = true;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(-2.56f, 4.4f, -2f), Quaternion.identity); // points to fourth card of opp
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.08f)); // discard position
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().discardCard();
+            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("3SPADES").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("5DIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().highlightCard();
+        }
+
+        if (hit.transform.tag == "1HEARTS")
+        {
+            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("3SPADES").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("5DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().removeHighlightCard();
+
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(0.83f, -1.77f, -2f), Quaternion.identity); // points to third card of you
+            selectedFirst = true;
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().highlightCard();
+        }
+
+        if (hit.transform.tag == "8DIAMONDS" && selectedFirst)
+        {
+            selectedFirst = false;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(-2.55f, 3.5f, -0.09f)); // move 8D to 1H
+            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(0.85f, -3.5f, -0.08f)); // move 1H to 8D
+            Destroy(GameObject.Find("tut_15_blindswap(Clone)"));
+
+            GameObject.FindGameObjectWithTag("KSPADES").GetComponent<TutCard>().highlightCard();
+            Instantiate(tut_16_knowSwap);
+            updateMode(Modes.KNOW_SWAP);
+        }
     }
 
     void exeKnowSwap(RaycastHit hit)
     {
+        if (hit.transform.tag == "Deck")
+        {
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().drawCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(activeCardPos);
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().highlightCard(); // highlight discard
+            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity); // points to discard
+            cardDrawn = true;
+        }
 
+        if (hit.transform.tag == "Discard" && cardDrawn)
+        {
+            cardDrawn = false;
+            discarded = true;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(-2.56f, 4.4f, -2f), Quaternion.identity); // points to fourth card of opp
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.08f)); // discard position
+            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().discardCard();
+            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("3SPADES").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("5DIAMONDS").GetComponent<TutCard>().highlightCard();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().highlightCard();
+        }
     }
 
     void exeObjective(RaycastHit hit)
