@@ -27,6 +27,11 @@ TagManager:
   - 4DIAMONDS
   - 7HEARTS
   - KDIAMONDS
+  - 9CLUBS
+  - 9DIAMONDS
+  - QDIAMONDS
+  - KSPADES
+  - 1DIAMONDS
   layers:
   - Default
   - TransparentFX

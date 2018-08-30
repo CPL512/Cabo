@@ -88,7 +88,7 @@ MonoBehaviour:
   num: 4
   suit: 0
   isFlipped: 0
-  moveTarget: {x: -1.17, y: -0.05, z: -0.02}
+  moveTarget: {x: -1.17, y: -0.05, z: -0.06}
 --- !u!114 &114960609024730704
 MonoBehaviour:
   m_ObjectHideFlags: 1
