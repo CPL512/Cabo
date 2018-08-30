@@ -9,7 +9,7 @@ public class Tutorial : MonoBehaviour {
 
     ArrayList myCards, hisCards;
     Vector3 target;
-    enum Modes { WELCOME, BEGINNING, GO_PEEK, YOU_CHOSE, DRAW, STACK, REPLACE, TECHNIQUES, VALUES, RED_KING, SPECIAL_CARDS, PEEK, PEEK_OPP, BLIND_SWAP, KNOW_SWAP, OBJECTIVE, NOTE_ONE, NOTE_TWO, CONFIDENT, WINNER };
+    enum Modes { WELCOME, BEGINNING, GO_PEEK, YOU_CHOSE, DRAW, STACK, REPLACE, TECHNIQUES, VALUES, RED_KING, SPECIAL_CARDS, PEEK, PEEK_OPP, BLIND_SWAP, KNOW_SWAP, OBJECTIVE, NOTE_ONE, NOTE_TWO, CONFIDENT, WINNER, CONGRATS };
     [SerializeField] Modes currentMode;
 
     [SerializeField] GameObject tut_1_welcome;
@@ -37,7 +37,9 @@ public class Tutorial : MonoBehaviour {
     [SerializeField] GameObject tut_19_noteTwo;
     [SerializeField] GameObject tut_20_confident;
     [SerializeField] GameObject tut_21_winner;
+    [SerializeField] GameObject tut_22_congrats;
     [SerializeField] GameObject green_arrow;
+    [SerializeField] GameObject cambrio_button;
 
     const int ACE = 1;
     const int JACK = 11;
@@ -249,6 +251,9 @@ public class Tutorial : MonoBehaviour {
                         break;
                     case Modes.WINNER:
                         exeWinner(hit);
+                        break;
+                    case Modes.CONGRATS:
+                        exeCongrats(hit);
                         break;
                 }
             }
@@ -550,7 +555,7 @@ public class Tutorial : MonoBehaviour {
                 GameObject.FindGameObjectWithTag(tag).GetComponent<TutCard>().removeHighlightCard();
             }
             GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().flipUp();
-            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.05f)); // deck position
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.06f)); // deck position
             Destroy(GameObject.Find("tut_14.5_peekOpp(Clone)"));
             Instantiate(tut_1475_peekOpp);
 
@@ -637,8 +642,6 @@ public class Tutorial : MonoBehaviour {
             GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(-2.55f, 3.5f, -0.09f)); // move 8D to 1H
             GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(0.85f, -3.5f, -0.08f)); // move 1H to 8D
             Destroy(GameObject.Find("tut_15_blindswap(Clone)"));
-
-            GameObject.FindGameObjectWithTag("KSPADES").GetComponent<TutCard>().highlightCard();
             Instantiate(tut_16_knowSwap);
             updateMode(Modes.KNOW_SWAP);
         }
@@ -646,56 +649,59 @@ public class Tutorial : MonoBehaviour {
 
     void exeKnowSwap(RaycastHit hit)
     {
-        if (hit.transform.tag == "Deck")
-        {
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().drawCard();
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().flipUp();
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().removeHighlightCard();
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(activeCardPos);
-            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().highlightCard(); // highlight discard
-            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity); // points to discard
-            cardDrawn = true;
-        }
-
-        if (hit.transform.tag == "Discard" && cardDrawn)
-        {
-            cardDrawn = false;
-            discarded = true;
-            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
-            Instantiate(green_arrow, new Vector3(-2.56f, 4.4f, -2f), Quaternion.identity); // points to fourth card of opp
-            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().removeHighlightCard();
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.08f)); // discard position
-            GameObject.FindGameObjectWithTag("QDIAMONDS").GetComponent<TutAssetRenderer>().discardCard();
-            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().highlightCard();
-            GameObject.FindGameObjectWithTag("3SPADES").GetComponent<TutCard>().highlightCard();
-            GameObject.FindGameObjectWithTag("5DIAMONDS").GetComponent<TutCard>().highlightCard();
-            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().highlightCard();
-        }
+        Destroy(GameObject.Find("tut_16_knowledgeSwap(Clone)"));
+        Instantiate(tut_17_objective);
+        updateMode(Modes.OBJECTIVE);
     }
 
     void exeObjective(RaycastHit hit)
     {
-
+        Destroy(GameObject.Find("tut_17_obj2(Clone)"));
+        Instantiate(tut_18_noteOne);
+        updateMode(Modes.NOTE_ONE);
     }
 
     void exeNoteOne(RaycastHit hit)
     {
-
+        Destroy(GameObject.Find("tut_18_note1(Clone)"));
+        Instantiate(tut_19_noteTwo);
+        updateMode(Modes.NOTE_TWO);
     }
 
     void exeNoteTwo(RaycastHit hit)
     {
-
+        Destroy(GameObject.Find("tut_19_note2(Clone)"));
+        Instantiate(tut_20_confident);
+        updateMode(Modes.CONFIDENT);
     }
 
     void exeConfident(RaycastHit hit)
     {
-
+        Destroy(GameObject.Find("tut_20_confident(Clone)"));
+        Instantiate(tut_21_winner);
+        Instantiate(cambrio_button);
+        updateMode(Modes.WINNER);
     }
 
     void exeWinner(RaycastHit hit)
     {
+        if (hit.transform.tag == "CAMBRIOBUTTON")
+        {
+            Destroy(GameObject.Find("tut_21_winner(Clone)"));
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("3SPADES").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("5DIAMONDS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("6SPADES").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("1HEARTS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().flipUp();
+            Instantiate(tut_22_congrats);
+            updateMode(Modes.CONGRATS);
+        }
+    }
 
+    void exeCongrats(RaycastHit hit)
+    {
+        quitTutorial();
     }
 
     void updateMode(Modes newMode)
