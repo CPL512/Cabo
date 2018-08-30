@@ -32,6 +32,7 @@ TagManager:
   - QDIAMONDS
   - KSPADES
   - 1DIAMONDS
+  - CAMBRIOBUTTON
   layers:
   - Default
   - TransparentFX
