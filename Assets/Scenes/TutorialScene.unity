@@ -776,13 +776,20 @@ MonoBehaviour:
     type: 2}
   tut_1475_peekOpp: {fileID: 1760306172203046, guid: 1c736bda104ba6046853077cb945d6c2,
     type: 2}
-  tut_15_blindSwap: {fileID: 0}
-  tut_16_knowSwap: {fileID: 0}
-  tut_17_objective: {fileID: 0}
-  tut_18_noteOne: {fileID: 0}
-  tut_19_noteTwo: {fileID: 0}
-  tut_20_confident: {fileID: 0}
-  tut_21_winner: {fileID: 0}
+  tut_15_blindSwap: {fileID: 1055884389711702, guid: 63a66f08288c29549b7f2919d7c757eb,
+    type: 2}
+  tut_16_knowSwap: {fileID: 1057268648479698, guid: 274fddd9a7bc24c44932041230b7548e,
+    type: 2}
+  tut_17_objective: {fileID: 1826926019606414, guid: 73105b2affcc0464999928c67c47663c,
+    type: 2}
+  tut_18_noteOne: {fileID: 1014196472474936, guid: 10aa85a1b8206c84391bff24d4d6b137,
+    type: 2}
+  tut_19_noteTwo: {fileID: 1456469275856532, guid: afa67d338d6c49c48b9df4cc602e5112,
+    type: 2}
+  tut_20_confident: {fileID: 1532234332924886, guid: 485c82534eb4f79498e0bec03ce635f6,
+    type: 2}
+  tut_21_winner: {fileID: 1798211953091306, guid: d239d960ea24ffc4e81aaad48a4a1613,
+    type: 2}
   green_arrow: {fileID: 1779768325124516, guid: 39960440745ae4a48b9b129b956724f8,
     type: 2}
 --- !u!4 &1562341854
