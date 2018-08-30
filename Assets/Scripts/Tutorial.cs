@@ -120,21 +120,49 @@ public class Tutorial : MonoBehaviour {
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
         GameObject.Instantiate(cardPrefab);
 
-        target = new Vector3(-1.17f, -0.05f, 0f); // DECK POSITION (LAST)
+        target = new Vector3(-1.17f, -0.05f, 0f);  // DECK POSITION (LAST)
+        cardPrefab.tag = "1DIAMONDS";
+        cardPrefab.GetComponent<TutCard>().setNum(ACE);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
+        cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
+        GameObject.Instantiate(cardPrefab);
+
+        target = new Vector3(-1.17f, -0.05f, -0.01f);
+        cardPrefab.tag = "KSPADES";
+        cardPrefab.GetComponent<TutCard>().setNum(KING);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.SPADES);
+        cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
+        GameObject.Instantiate(cardPrefab);
+
+        target = new Vector3(-1.17f, -0.05f, -0.02f);
+        cardPrefab.tag = "QDIAMONDS";
+        cardPrefab.GetComponent<TutCard>().setNum(QUEEN);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
+        cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
+        GameObject.Instantiate(cardPrefab);
+
+        target = new Vector3(-1.17f, -0.05f, -0.03f);
+        cardPrefab.tag = "9DIAMONDS";
+        cardPrefab.GetComponent<TutCard>().setNum(9);
+        cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
+        cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
+        GameObject.Instantiate(cardPrefab);
+
+        target = new Vector3(-1.17f, -0.05f, -0.04f);
         cardPrefab.tag = "7HEARTS";
         cardPrefab.GetComponent<TutCard>().setNum(7);
         cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.HEARTS);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
         GameObject.Instantiate(cardPrefab);
 
-        target = new Vector3(-1.17f, -0.05f, -0.01f); // DECK POSITION
+        target = new Vector3(-1.17f, -0.05f, -0.05f); 
         cardPrefab.tag = "KDIAMONDS";
         cardPrefab.GetComponent<TutCard>().setNum(KING);
         cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
         GameObject.Instantiate(cardPrefab);
 
-        target = new Vector3(-1.17f, -0.05f, -0.02f); // DECK POSITION (FIRST)
+        target = new Vector3(-1.17f, -0.05f, -0.06f); // DECK POSITION (FIRST)
         cardPrefab.tag = "4DIAMONDS";
         cardPrefab.GetComponent<TutCard>().setNum(4);
         cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
@@ -217,7 +245,7 @@ public class Tutorial : MonoBehaviour {
                         exeWinner(hit);
                         break;
                 }
-        }
+            }
         }
 	}
 
@@ -302,7 +330,7 @@ public class Tutorial : MonoBehaviour {
     {
         if (hit.transform.tag == "Discard" && !discarded)
         {
-            GameObject.FindGameObjectWithTag("4DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, 0f));
+            GameObject.FindGameObjectWithTag("4DIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, 0f)); // DISCARD pos
             GameObject.FindGameObjectWithTag("4DIAMONDS").GetComponent<TutAssetRenderer>().discardCard();
             Destroy(GameObject.Find("tut_6_stack(Clone)"));
             Instantiate(tut_65_stack);
@@ -329,7 +357,8 @@ public class Tutorial : MonoBehaviour {
                 GameObject.FindGameObjectWithTag(tag).GetComponent<TutCard>().removeHighlightCard();
             }
 
-            GameObject.FindGameObjectWithTag("4HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.01f));
+            discarded = false;
+            GameObject.FindGameObjectWithTag("4HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.02f));
             GameObject.FindGameObjectWithTag("4HEARTS").GetComponent<TutCard>().flipUp();
             Destroy(GameObject.Find("tut_6.75_stack(Clone)"));
             Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
@@ -368,10 +397,12 @@ public class Tutorial : MonoBehaviour {
             {
                 GameObject.FindGameObjectWithTag(tag).GetComponent<TutCard>().removeHighlightCard();
             }
+
             Destroy(GameObject.Find("tut_7_replace(Clone)"));
+            cardDrawn = false; // to use later
             Instantiate(tut_8_techniques);
             updateMode(Modes.TECHNIQUES);
-            GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.02f));
+            GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.03f));
             GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().flipUp();
             GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutCard>().setMoveTarget(new Vector3(2.55f, -3.5f, 0f));
             GameObject.FindGameObjectWithTag("KDIAMONDS").GetComponent<TutAssetRenderer>().replaceCard();
@@ -407,13 +438,54 @@ public class Tutorial : MonoBehaviour {
         Destroy(GameObject.Find("tut_11_specialCards(Clone)"));
         Destroy(GameObject.Find("tut_12_specialCards2(Clone)"));
         Instantiate(tut_13_peek);
+        GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().highlightCard();
         updateMode(Modes.PEEK);
         Instantiate(green_arrow, new Vector3(-1.2f, 1.79f, -2f), Quaternion.identity);
     }
 
     void exePeek(RaycastHit hit)
     {
-        updateMode(Modes.PEEK_OPP);
+        if (hit.transform.tag == "Deck")
+        {
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutAssetRenderer>().drawCard();
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().flipUp();
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().setMoveTarget(activeCardPos);
+            GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().highlightCard();
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(1.13f, 1.79f, -2f), Quaternion.identity); // points to discard
+            cardDrawn = true;
+        }
+
+        if (hit.transform.tag == "Discard" && cardDrawn)
+        {
+            cardDrawn = false;
+            discarded = true;
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Instantiate(green_arrow, new Vector3(0.82f, -1.66f, -2f), Quaternion.identity); // points to third hand card
+            GameObject.FindGameObjectWithTag("10CLUBS").GetComponent<TutCard>().removeHighlightCard();
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutCard>().setMoveTarget(new Vector3(1.155f, -0.05f, -0.03f));
+            GameObject.FindGameObjectWithTag("7HEARTS").GetComponent<TutAssetRenderer>().discardCard();
+            
+        }
+
+        if (hit.transform.tag == "8DIAMONDS" && discarded)
+        {
+            discarded = false;
+            GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().flipUp();
+            StartCoroutine(flipCardDown());
+            Destroy(GameObject.FindGameObjectWithTag("greenArrow"));
+            Destroy(GameObject.Find("tut_13_peek(Clone)"));
+            GameObject.FindGameObjectWithTag("9DIAMONDS").GetComponent<TutCard>().highlightCard();
+            Instantiate(tut_14_peekOpp);
+            updateMode(Modes.PEEK_OPP);
+        }
+    }
+
+    IEnumerator flipCardDown()
+    {
+        yield return new WaitForSeconds(2);
+        GameObject.FindGameObjectWithTag("8DIAMONDS").GetComponent<TutCard>().flipDown();
     }
 
     void exePeekOpp(RaycastHit hit)
