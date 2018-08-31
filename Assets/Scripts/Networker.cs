@@ -52,6 +52,17 @@ public class Networker : NetworkManager {
         base.OnServerDisconnect(conn);
     }
 
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        //do nothing since auto create player is disabled and onclientscenechanged does the work
+    }
+
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        ClientScene.Ready(conn);
+        ClientScene.AddPlayer(client.connection, 0);
+    }
+
     public GameObject[] getPlayers()
     {
         return players;

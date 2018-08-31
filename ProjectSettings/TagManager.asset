@@ -33,6 +33,7 @@ TagManager:
   - KSPADES
   - 1DIAMONDS
   - CAMBRIOBUTTON
+  - Disconnect
   layers:
   - Default
   - TransparentFX

@@ -189,8 +189,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
-        m_MethodName: closeLocalMenU
+      - m_Target: {fileID: 1430969547}
+        m_MethodName: closeLocalMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -386,9 +386,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: joinLocalGame
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: closeSceneMenu
         m_Mode: 1
         m_Arguments:
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 499163867}
   - component: {fileID: 499163866}
   m_Layer: 5
-  m_Name: Online Enter Name Text
+  m_Name: Online Enter Room Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1143,41 +1143,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 659368104}
   m_CullTransparentMesh: 0
---- !u!1 &703996490 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1964856693924760, guid: 10620401f71154948abeb3dc20e48dd1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1505057978}
---- !u!114 &703996491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 703996490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0791813f4979ebe45bc8005e27d52939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
---- !u!114 &703996493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 703996490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!1 &850596936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1483,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: createOnlineGame
         m_Mode: 1
         m_Arguments:
@@ -1640,7 +1605,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: joinOnlineGame
         m_Mode: 1
         m_Arguments:
@@ -1964,8 +1929,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -90}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315868292
 MonoBehaviour:
@@ -2006,7 +1971,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: openTutorial
         m_Mode: 1
         m_Arguments:
@@ -2138,6 +2103,7 @@ GameObject:
   - component: {fileID: 1430969546}
   - component: {fileID: 1430969545}
   - component: {fileID: 1430969544}
+  - component: {fileID: 1430969547}
   m_Layer: 0
   m_Name: Play Button
   m_TagString: PlayButton
@@ -2188,6 +2154,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1430969547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1430969543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7245d239d4ea55e438f94c8d1df5db89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneMenu: {fileID: 1054039162}
+  onlineMenu: {fileID: 850596939}
+  localMenu: {fileID: 1282169823}
+  onlineCreateRoomField: {fileID: 1992464843}
+  onlineJoinRoomField: {fileID: 2042353474}
+  localJoinIPField: {fileID: 1573582960}
+  onlineEnterRoomText: {fileID: 499163866}
+  onlineNoRoomText: {fileID: 181001295}
+  localEnterIPText: {fileID: 1292503187}
 --- !u!1 &1468166235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,7 +2384,7 @@ Prefab:
     - target: {fileID: 114793626634024188, guid: 10620401f71154948abeb3dc20e48dd1,
         type: 2}
       propertyPath: m_AutoCreatePlayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114332587830489080, guid: 10620401f71154948abeb3dc20e48dd1,
         type: 2}
@@ -2463,12 +2449,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10620401f71154948abeb3dc20e48dd1, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &1505057979 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114332587830489080, guid: 10620401f71154948abeb3dc20e48dd1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1505057978}
-  m_Script: {fileID: 11500000, guid: 373d1603b0af34546980abffa4af8088, type: 3}
 --- !u!1 &1542860341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2599,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: createLocalGame
         m_Mode: 1
         m_Arguments:
@@ -2877,7 +2857,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: closeOnlineMenu
         m_Mode: 1
         m_Arguments:
@@ -3260,8 +3240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1884906765
 MonoBehaviour:
@@ -3302,7 +3282,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: openLocalMenu
         m_Mode: 1
         m_Arguments:
@@ -3518,8 +3498,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 90}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012257196
 MonoBehaviour:
@@ -3560,7 +3540,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1505057979}
+      - m_Target: {fileID: 1430969547}
         m_MethodName: openOnlineMenu
         m_Mode: 1
         m_Arguments:

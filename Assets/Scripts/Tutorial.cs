@@ -48,8 +48,8 @@ public class Tutorial : MonoBehaviour {
     GameObject spades3;
     GameObject diamonds5;
     GameObject diamonds9;
-    GameObject diamonds1;
-    GameObject spadesK;
+    //GameObject diamonds1; not used
+    //GameObject spadesK; not used
     GameObject diamondsQ;
     GameObject clubs9;
     GameObject hearts7;
@@ -153,14 +153,14 @@ public class Tutorial : MonoBehaviour {
         cardPrefab.GetComponent<TutCard>().setNum(ACE);
         cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.DIAMONDS);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
-        diamonds1 = GameObject.Instantiate(cardPrefab);
+        /*diamonds1 = */GameObject.Instantiate(cardPrefab);
 
         target = new Vector3(-1.17f, -0.05f, -0.01f);
         cardPrefab.tag = "KSPADES";
         cardPrefab.GetComponent<TutCard>().setNum(KING);
         cardPrefab.GetComponent<TutCard>().setSuit(TutCard.Suit.SPADES);
         cardPrefab.GetComponent<TutCard>().setMoveTarget(target);
-        spadesK = GameObject.Instantiate(cardPrefab);
+        /*spadesK = */GameObject.Instantiate(cardPrefab);
 
         target = new Vector3(-1.17f, -0.05f, -0.02f);
         cardPrefab.tag = "QDIAMONDS";
