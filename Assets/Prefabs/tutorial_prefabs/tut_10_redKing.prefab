@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4928459229853376}
   - component: {fileID: 212853176508490494}
+  - component: {fileID: 65306395908076918}
   m_Layer: 0
   m_Name: tut_10_redKing
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65306395908076918
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1682767314469798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.9999995, y: 3.9999998, z: 0.19999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212853176508490494
 SpriteRenderer:
   m_ObjectHideFlags: 1

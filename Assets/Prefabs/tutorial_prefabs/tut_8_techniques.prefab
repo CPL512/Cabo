@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935835655609704}
   - component: {fileID: 212859728873184052}
+  - component: {fileID: 136955681155394692}
   m_Layer: 0
   m_Name: tut_8_techniques
   m_TagString: Untagged
@@ -40,6 +41,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &136955681155394692
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422512203007918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212859728873184052
 SpriteRenderer:
   m_ObjectHideFlags: 1

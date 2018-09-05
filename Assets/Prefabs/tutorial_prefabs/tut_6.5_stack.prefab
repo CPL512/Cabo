@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758517979229008}
   - component: {fileID: 212455213557514786}
+  - component: {fileID: 65112398011280678}
   m_Layer: 0
   m_Name: tut_6.5_stack
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65112398011280678
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609670675933394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.000001, y: 4.0000005, z: 0.20000003}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212455213557514786
 SpriteRenderer:
   m_ObjectHideFlags: 1
