@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Intro : MonoBehaviour {
 
@@ -10,14 +11,7 @@ public class Intro : MonoBehaviour {
     GameObject cambrio_title_anim;
     [SerializeField]
     GameObject play_button_anim;
-
-    public Canvas sceneMenu;
-
-    void Awake()
-    {
-        sceneMenu.enabled = false;
-    }
-
+    
     // Use this for initialization
     void Start()
     {
@@ -38,7 +32,7 @@ public class Intro : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.tag == "PlayButton")
             {
-                sceneMenu.enabled = true;
+                SceneManager.LoadScene("MenuScene");
             }
         }
     }

@@ -52,10 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d1603b0af34546980abffa4af8088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlineCreateRoomField: {fileID: 0}
-  onlineJoinRoomField: {fileID: 0}
-  localCreateRoomField: {fileID: 0}
-  localJoinRoomField: {fileID: 0}
 --- !u!114 &114793626634024188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,9 +74,9 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 1914725582788022, guid: d916095f9b4e77e43baa53ce6a8f8b33,
     type: 2}
-  m_AutoCreatePlayer: 1
+  m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: MenuScene
+  m_OfflineScene: 
   m_OnlineScene: PlayScene
   m_SpawnPrefabs:
   - {fileID: 1733271534344688, guid: 2e4a3c504104aee4a8b0ada7a4d25ffe, type: 2}
