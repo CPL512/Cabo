@@ -9,8 +9,7 @@ public class Menus : MonoBehaviour {
     const int MESSAGE_TIME = 2;
 
     NetworkerHUD networkhud;
-
-    public Canvas sceneMenu;
+    
     public Canvas onlineMenu;
     public Canvas localMenu;
 
@@ -25,19 +24,13 @@ public class Menus : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         networkhud = GameObject.FindGameObjectWithTag("Networker").GetComponent<NetworkerHUD>();
-
-        sceneMenu.enabled = false;
+        
         onlineMenu.enabled = false;
         localMenu.enabled = false;
 
         onlineEnterRoomText.enabled = false;
         onlineNoRoomText.enabled = false;
         localEnterIPText.enabled = false;
-    }
-
-    public void closeSceneMenu()
-    {
-        sceneMenu.enabled = false;
     }
 
     public void openOnlineMenu()
@@ -92,7 +85,7 @@ public class Menus : MonoBehaviour {
         networkhud.createLocalGame();
     }
 
-    public void joinLocalGame(string ip)
+    public void joinLocalGame()
     {
         if (localJoinIPField.text != "")
         {
