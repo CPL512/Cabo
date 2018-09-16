@@ -14,11 +14,27 @@ public class PlayerScript : NetworkBehaviour {
     const int BLIND_SWAP_Q = 12;
     const int SEE_SWAP_K = 13;
     const int FLIP_TIME = 3;
+    const int PLAYER1 = 1;
+    const int PLAYER2 = 2;
+    public const int WIN = 1;
+    public const int TIE = 0;
+    public const int LOSE = -1;
 
     public GameObject confirmButton;
     public GameObject cancelButton;
 
     public GameObject disconnectButton;
+
+    public GameObject redCambrio;
+    public GameObject blueCambrio;
+    [SyncVar]
+    int playerNum;
+
+    public GameObject youWin;
+    public GameObject youTie;
+    public GameObject youLose;
+    [SyncVar]
+    int gameOutcome;
 
     Networker net;
     Controller control;
@@ -52,11 +68,6 @@ public class PlayerScript : NetworkBehaviour {
     Modes mode;
 
     Camera cam;
-
-    public string getName()
-    {
-        return "deprecated";
-    }
 
 	// Use this for initialization
 	void Start () {
@@ -112,6 +123,8 @@ public class PlayerScript : NetworkBehaviour {
             GetComponentInChildren<AudioListener>().enabled = true;
 
             disconnectButton.SetActive(true);
+            if (playerNum == PLAYER1) redCambrio.SetActive(true);
+            else if (playerNum == PLAYER2) blueCambrio.SetActive(true);
 
             if (!this.isServer)
             {
@@ -596,19 +609,10 @@ public class PlayerScript : NetworkBehaviour {
     public void CmdCallCambrio()
     {
         control.callCambrio();
-        RpcDisableCambrio();
+        redCambrio.SetActive(false);
+        blueCambrio.SetActive(false);
         mode = Modes.CAMBRIO;
         control.nextPlayerTurn();
-    }
-
-    [ClientRpc]
-    public void RpcDisableCambrio()
-    {
-        GameObject[] cambrioCallers = GameObject.FindGameObjectsWithTag("Cambrio");
-        foreach (GameObject caller in cambrioCallers)
-        {
-            caller.SetActive(false);
-        }
     }
 
     public int getScore()
@@ -757,6 +761,63 @@ public class PlayerScript : NetworkBehaviour {
         for(int i = 0; i < hand.Length; i++)
         {
             if (hand[i] != null && hand[i].getCard() != null) hand[i].getCard().flipUp();
+        }
+    }
+
+    public void setPlayerNum(int num)
+    {
+        playerNum = num;
+    }
+
+    public void setOutcome(int outcome)
+    {
+        gameOutcome = outcome;
+    }
+
+    [ClientRpc]
+    public void RpcWin()
+    {
+        if(this.isLocalPlayer)
+        {
+            youWin.SetActive(true);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcTie()
+    {
+        if (this.isLocalPlayer)
+        {
+            youTie.SetActive(true);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcLose()
+    {
+        if (this.isLocalPlayer)
+        {
+            youLose.SetActive(true);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcShowOutcome()
+    {
+        if (this.isLocalPlayer)
+        {
+            switch (gameOutcome)
+            {
+                case WIN:
+                    youWin.SetActive(true);
+                    break;
+                case TIE:
+                    youTie.SetActive(true);
+                    break;
+                case LOSE:
+                    youLose.SetActive(true);
+                    break;
+            }
         }
     }
 }

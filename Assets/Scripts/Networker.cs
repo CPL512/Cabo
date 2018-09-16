@@ -30,6 +30,7 @@ public class Networker : NetworkManager {
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
         players[numSpawned] = player;
         numSpawned++;
+        player.GetComponent<PlayerScript>().setPlayerNum(numSpawned);
     }
 
     public override void OnStartHost()
