@@ -245,8 +245,7 @@ public class PlayerScript : NetworkBehaviour {
             // ETHAN: added animation that draws card and flips it to reveal to player
             activeCard.GetComponent<AssetRenderer>().drawCard();
             activeCard.toggleCard();
-
-            Debug.Log("drew " + activeCard.toString());
+            
             CmdUpdateMode(Modes.TURN);
             deck.unhighlightDeck();
             discard.highlightDiscard();
@@ -452,7 +451,6 @@ public class PlayerScript : NetworkBehaviour {
             oldMode = mode;
             CmdUpdateMode(Modes.DOUBLING);
             control.highlightPlayerCardsExcept(null);
-            //Debug.Log("doubling");
         }
     }
 
@@ -473,7 +471,6 @@ public class PlayerScript : NetworkBehaviour {
                 {
                     CmdUpdateMode(Modes.REPLACING);
                     this.highlightHand();
-                    //Debug.Log("replacing");
                 }
                 else
                 {
@@ -505,7 +502,6 @@ public class PlayerScript : NetworkBehaviour {
             CmdUpdateMode(oldMode);
             control.unhighlightPlayerCardsExcept(null);
             revertBoardState();
-            //Debug.Log(oldMode);
         }
     }
 
@@ -658,7 +654,6 @@ public class PlayerScript : NetworkBehaviour {
     {
         if (card != null)
         {
-            //Debug.Log("hand at " + handInd + " set to " + card.GetComponent<Card>().toString());
             hand[handInd].setCard(card.GetComponent<Card>());
             card.GetComponent<Card>().setMoveTarget(hand[handInd].transform.position);
             card.GetComponent<Card>().flipDown();
@@ -798,26 +793,6 @@ public class PlayerScript : NetworkBehaviour {
         if (this.isLocalPlayer)
         {
             youLose.SetActive(true);
-        }
-    }
-
-    [ClientRpc]
-    public void RpcShowOutcome()
-    {
-        if (this.isLocalPlayer)
-        {
-            switch (gameOutcome)
-            {
-                case WIN:
-                    youWin.SetActive(true);
-                    break;
-                case TIE:
-                    youTie.SetActive(true);
-                    break;
-                case LOSE:
-                    youLose.SetActive(true);
-                    break;
-            }
         }
     }
 }

@@ -113,7 +113,6 @@ public class Controller : NetworkBehaviour {
     IEnumerator dealCards() //deal cards to each player with a delay between each card
     {
         beginning = true;
-        //Debug.Log("beginning game");
         foreach (PlayerScript player in players)
         {
             if (player == null) continue;
