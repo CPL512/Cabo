@@ -204,7 +204,8 @@ public class Controller : NetworkBehaviour {
     {
         RpcRevealHands();
         int minScore = MAX_HAND_VALUE;
-        Queue<int> minIndices = new Queue<int>();
+        Queue<int> winIndices = new Queue<int>();
+        Queue<int> loseIndices = new Queue<int>();
         int score;
         for(int i = 0; i < players.Length; i++)
         {
@@ -213,27 +214,39 @@ public class Controller : NetworkBehaviour {
             if(score < minScore)
             {
                 minScore = score;
-                minIndices.Clear();
-                minIndices.Enqueue(i);
+                while(winIndices.Count > 0)
+                {
+                    loseIndices.Enqueue(winIndices.Dequeue());
+                }
+                winIndices.Enqueue(i);
             }
             else if(score == minScore)
             {
-                minIndices.Enqueue(i);
+                winIndices.Enqueue(i);
+            }
+            else
+            {
+                loseIndices.Enqueue(i);
             }
         }
-        if (minIndices.Count > 1)
+
+        if(winIndices.Count > 1)
         {
-            while (minIndices.Count > 1)
+            while(winIndices.Count > 0)
             {
-                Debug.Log(players[minIndices.Dequeue()].getName() + " and ");
+                players[winIndices.Dequeue()].RpcTie();
             }
-            Debug.Log(players[minIndices.Dequeue()].getName() + " tie with " + minScore);
         }
         else
         {
-            Debug.Log(players[minIndices.Dequeue()].getName() + " wins with " + minScore);
+            players[winIndices.Dequeue()].RpcWin();
         }
-        
+
+        while (loseIndices.Count > 0)
+        {
+            players[loseIndices.Dequeue()].RpcLose();
+        }
+
         quitGame.SetActive(true); //allow players to quit back to main menu
     }
 }
