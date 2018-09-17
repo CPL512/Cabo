@@ -33,8 +33,6 @@ public class PlayerScript : NetworkBehaviour {
     public GameObject youWin;
     public GameObject youTie;
     public GameObject youLose;
-    [SyncVar]
-    int gameOutcome;
 
     Networker net;
     Controller control;
@@ -140,11 +138,11 @@ public class PlayerScript : NetworkBehaviour {
 	void FixedUpdate () {
         if (this.isLocalPlayer)
         {
-            //Touch touch = Input.touches[0];
-            //if (touch.phase == TouchPhase.Began) {
-            //    Ray ray = cam.ScreenPointToRay(touch.position);
-            if (Input.GetMouseButtonDown(0)) {
-              Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Touch touch = Input.touches[0]; //touch controls
+            if (touch.phase == TouchPhase.Began) {
+                Ray ray = cam.ScreenPointToRay(touch.position);
+            //if (Input.GetMouseButtonDown(0)) { //mouse controls
+             // Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if(Physics.Raycast(ray, out hit))
                 {
@@ -762,11 +760,6 @@ public class PlayerScript : NetworkBehaviour {
     public void setPlayerNum(int num)
     {
         playerNum = num;
-    }
-
-    public void setOutcome(int outcome)
-    {
-        gameOutcome = outcome;
     }
 
     [ClientRpc]

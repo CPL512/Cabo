@@ -23,12 +23,12 @@ public class Intro : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        /*Touch touch = Input.touches[0];
+        Touch touch = Input.touches[0]; //touch controls
         if (touch.phase == TouchPhase.Began) {
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);*/
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+        //if (Input.GetMouseButtonDown(0)) //mouse controls
+        //{
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.tag == "PlayButton")
             {
