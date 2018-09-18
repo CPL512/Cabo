@@ -135,14 +135,14 @@ public class PlayerScript : NetworkBehaviour {
         }
 	}
 	
-	void FixedUpdate () {
+	void Update () {
         if (this.isLocalPlayer)
         {
-            Touch touch = Input.touches[0]; //touch controls
-            if (touch.phase == TouchPhase.Began) {
-                Ray ray = cam.ScreenPointToRay(touch.position);
-            //if (Input.GetMouseButtonDown(0)) { //mouse controls
-             // Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            //Touch touch = Input.touches[0]; //touch controls seems to be causing unexpected behavior
+            //if (touch.phase == TouchPhase.Began) {
+                //Ray ray = cam.ScreenPointToRay(touch.position);
+            if (Input.GetMouseButtonDown(0)) { //mouse controls
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if(Physics.Raycast(ray, out hit))
                 {

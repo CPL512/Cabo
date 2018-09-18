@@ -46,8 +46,7 @@ public class Controller : NetworkBehaviour {
         quitGame.SetActive(false);
     }
 	
-	// FixedUpdate is called independent of frame
-	void FixedUpdate () {
+	void Update () {
         if(!isServer) //only server controller needs to do things
         {
             return;
